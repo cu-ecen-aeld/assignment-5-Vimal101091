@@ -4,26 +4,20 @@
 #
 ##############################################################
 
-AESD_ASSIGNMENTS_VERSION = bb46f5363f89cc9bb81962a2ed960e7a68a60e24
+AESD_ASSIGNMENTS_VERSION = 3c742d5a153641bb6cb5f9af58ad883f02506d38
 AESD_ASSIGNMENTS_SITE = git@github.com:cu-ecen-aeld/assignments-3-and-later-Vimal101091.git
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
 define AESD_ASSIGNMENTS_BUILD_CMDS
-	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/finder-app all
+      $(TARGET_MAKE_ENV) $(MAKE) -C $(@D)/server clean
+	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D)/server CC="$(TARGET_CC)"
 endef
 
 define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 # Create target conf directory
-	$(INSTALL) -d 0755 $(TARGET_DIR)/etc/finder-app/conf/
-
-	# Copy conf files
-	$(INSTALL) -m 0644 $(@D)/conf/* $(TARGET_DIR)/etc/finder-app/conf/
-
-	# Install binaries and scripts
-	$(INSTALL) -m 0755 $(@D)/finder-app/writer $(TARGET_DIR)/bin/
-	$(INSTALL) -m 0755 $(@D)/finder-app/finder.sh $(TARGET_DIR)/bin/
-	$(INSTALL) -m 0755 $(@D)/finder-app/finder-test.sh $(TARGET_DIR)/bin/
+       $(INSTALL) -D -m 0755 $(@D)/server/aesdsocket $(TARGET_DIR)/usr/bin/aesdsocket
+       $(INSTALL) -D -m 0755 $(@D)/server/aesdsocket-start-stop $(TARGET_DIR)/etc/init.d/S99aesdsocket
 endef
 
 $(eval $(generic-package))
