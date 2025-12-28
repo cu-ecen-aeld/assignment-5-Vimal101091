@@ -1,0 +1,26 @@
+﻿#!/bin/sh
+
+case "$1" in
+    start)
+        echo "Loading LDD kernel modules"
+        modprobe hello
+        modprobe faulty
+        modprobe scull
+
+        # Create device nodes manually if needed
+        [ ! -e /dev/faulty ] && mknod /dev/faulty c 240 0
+        [ ! -e /dev/scull0 ] && mknod /dev/scull0 c 241 0
+        ;;
+    stop)
+        echo "Unloading LDD kernel modules"
+        rmmod scull
+        rmmod faulty
+        rmmod hello
+
+        # Optional: remove nodes
+        [ -e /dev/faulty ] && rm -f /dev/faulty
+        [ -e /dev/scull0 ] && rm -f /dev/scull0
+        ;;
+esac
+
+exit 0

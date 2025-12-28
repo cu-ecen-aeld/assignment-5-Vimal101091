@@ -1,0 +1,5 @@
+config BR2_PACKAGE_LDD
+    bool "ldd kernel modules"
+    depends on BR2_LINUX_KERNEL
+    help
+      Build and install LDD kernel modules (hello, faulty, scull)
