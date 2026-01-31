@@ -1,26 +1,27 @@
-﻿#!/bin/sh
+#!/bin/sh
 
 case "$1" in
     start)
         echo "Loading LDD kernel modules"
-        modprobe hello
+        # Load scull using the provided script
+        /usr/bin/scull_load
+        # Load faulty module
         modprobe faulty
-        modprobe scull
-
-        # Create device nodes manually if needed
-        [ ! -e /dev/faulty ] && mknod /dev/faulty c 240 0
-        [ ! -e /dev/scull0 ] && mknod /dev/scull0 c 241 0
+        # Load hello module
+        modprobe hello
         ;;
     stop)
         echo "Unloading LDD kernel modules"
-        rmmod scull
-        rmmod faulty
+        # Unload hello module
         rmmod hello
-
-        # Optional: remove nodes
-        [ -e /dev/faulty ] && rm -f /dev/faulty
-        [ -e /dev/scull0 ] && rm -f /dev/scull0
+        # Unload faulty module
+        rmmod faulty
+        # Unload scull using the provided script
+        /usr/bin/scull_unload
         ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+        exit 1
 esac
 
 exit 0
