@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LDD_VERSION = b00723e83fda3ca12b7b0fc23b04fd869a2ebe67
+LDD_VERSION = assignment-7-buildroot
 LDD_SITE = https://github.com/cu-ecen-aeld/assignment-7-Vimal101091.git
 LDD_SITE_METHOD = git
 
