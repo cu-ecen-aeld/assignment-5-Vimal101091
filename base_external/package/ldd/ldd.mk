@@ -3,7 +3,7 @@
 # ldd
 #
 ################################################################################
-LDD_VERSION = assignment-7-buildroot
+LDD_VERSION = 95464cdccfaa86f10019c972f4907328ea156163
 LDD_SITE = git@github.com:cu-ecen-aeld/assignment-7-Vimal101091.git
 LDD_SITE_METHOD = git
 LDD_MODULE_SUBDIRS = misc-modules scull
